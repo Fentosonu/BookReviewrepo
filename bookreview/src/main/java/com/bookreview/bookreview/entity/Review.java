@@ -1,9 +1,9 @@
 package com.bookreview.bookreview.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.Date;
 
 @Entity
 @Getter
@@ -17,4 +17,21 @@ public class Review {
 
     @Id
     private Long id;
+
+    @Column
+    private String reviewerName;
+
+    @Column
+    private int rating;
+
+    @Column (columnDefinition = "TEXT")
+    private String comment;
+
+    @Column
+    private Date reviewDate;
+
+    @ManyToOne
+    @JoinColumn(name = "book_id", referencedColumnName = "id")
+    private Book book;
+
 }
