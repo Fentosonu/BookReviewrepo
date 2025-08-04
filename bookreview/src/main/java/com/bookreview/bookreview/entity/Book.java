@@ -31,7 +31,6 @@ public class Book {
     @NotBlank
     private String author;
 
-
     @NotNull
     @PastOrPresent
     @Temporal(TemporalType.DATE)
