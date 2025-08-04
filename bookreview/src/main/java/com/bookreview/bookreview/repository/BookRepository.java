@@ -9,5 +9,5 @@ import java.util.Optional;
 
 @Repository
 public interface BookRepository extends JpaRepository<Book, Long> {
-    public List<Book> findByIsbn(String isbn);
+    Optional<Book> findByIsbnIgnoreCase(String isbn);
 }
