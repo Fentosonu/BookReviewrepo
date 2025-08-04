@@ -1,12 +1,12 @@
 package com.bookreview.bookreview.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Getter
@@ -16,19 +16,27 @@ import java.util.Date;
 @AllArgsConstructor
 @Table(name = "books")
 public class Book {
-//    id, isbn, title, author, publicationYear
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
+    @NotBlank
+    @Pattern(regexp = "^(?:\\d{13}|\\d{3}-\\d{10})$")
+    @Column(unique = true)
     private String isbn;
 
-    @Column
+    @NotBlank
     private String title;
 
-    @Column
+    @NotBlank
     private String author;
 
-    @Column
+
+    @NotNull
+    @PastOrPresent
+    @Temporal(TemporalType.DATE)
     private Date publicationYear;
+
+    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Review> reviews = new ArrayList<>();
 }
